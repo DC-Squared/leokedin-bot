@@ -1,6 +1,6 @@
 import InvalidProvidedURL from "./errors/InvalidProvidedURL.js"
 
-function isValidUrl(string) {
+function validateURL(string) {
     let url
 
     try {
@@ -12,4 +12,4 @@ function isValidUrl(string) {
     return url.protocol === 'http:' || url.protocol === 'https:'
 }
 
-export { isValidUrl }
+export { validateURL }

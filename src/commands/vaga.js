@@ -1,4 +1,5 @@
-import { isValidUrl } from '../common/validations.js';
+import scrap from '../crawlers/index.js'
+import { validateURL } from '../common/validations.js';
 import RequiredParameters from '../common/errors/RequiredParameters.js'
 
 function vaga({ params }) {
@@ -6,8 +7,8 @@ function vaga({ params }) {
 
     const url = params[0]
     try {
-        isValidUrl(url)
-        // Do something...
+        validateURL(url)
+        scrap(url)
     } catch (err) {
         console.error(err.message)
     }
