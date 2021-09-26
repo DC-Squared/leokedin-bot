@@ -1,15 +1,26 @@
 import ping from './ping.js'
+import vaga from './vaga.js'
 
 function handleCommand(message) {
     const splitted = message.content.split(' ')
-    const command = splitted[0].replace('>', '')
-    switch (command) {
-        case 'ping':
-            ping(message)
-            break
-        default:
-            message.channel.send('Hmmm... não sei nada sobre isso.')
-            console.log(`Unexpected command typed ${command}`)
+    const command = {
+        name: splitted[0].replace('>', ''),
+        params: splitted.slice(1, splitted.length)
+    }
+    try {
+        switch (command.name) {
+            case 'ping':
+                ping(message)
+                break
+            case 'vaga':
+                vaga(message, command)
+                break
+            default:
+                message.channel.send('Hmmm... não sei nada sobre isso.')
+                console.log(`Unexpected command typed ${command}`)
+        }
+    } catch (err) {
+        console.error(err.message)
     }
 }
 
