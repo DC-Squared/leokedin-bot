@@ -6,11 +6,11 @@ function crawlerIdentifier(url) {
 
 export default function scrap(url) {
     const crawler = crawlerIdentifier(url)
-    console.log(`Crawler identified: ${crawler}`) // DEBUG
     
     switch(crawler) {
         case 'linkedin':
             const jobDetails = scrapFromLinkedin(url)
+            return jobDetails
             break;
         default:
             console.log('No available crawler for this URL.')

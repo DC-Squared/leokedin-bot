@@ -13,7 +13,7 @@ function handleCommand(message) {
                 ping(message)
                 break
             case 'vaga':
-                vaga(command)
+                vaga(message, command)
                 break
             default:
                 message.channel.send('Hmmm... não sei nada sobre isso.')

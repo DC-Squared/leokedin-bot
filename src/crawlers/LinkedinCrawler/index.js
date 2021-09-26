@@ -1,4 +1,3 @@
-import { v4 as uuid} from 'uuid'
 import puppeteer from 'puppeteer'
 
 async function scrapFromLinkedin(jobUrl) {
@@ -13,7 +12,6 @@ async function scrapFromLinkedin(jobUrl) {
             waitUntil: 'networkidle2'
         })
         
-        console.log('Page loaded. Start to evaluate JS.') // DEBUG
         let jobDetails = await page.evaluate(() => {
             const jobName = document.querySelector('.top-card-layout__title').innerText
             const companyName = document.querySelector('.topcard__org-name-link.topcard__flavor--black-link').innerText
@@ -24,16 +22,17 @@ async function scrapFromLinkedin(jobUrl) {
 
             return {
                 jobName,
+                jobLocal,
                 companyName,
                 companyImage,
-                jobLocal,
                 recruiterName,
                 recruiterPosition
             }
         })
 
         browser.close()
-
+        
+        jobDetails['jobUrl'] = jobUrl
         return jobDetails
     } catch (err) {
         console.log(err)

@@ -1,14 +1,17 @@
 import scrap from '../crawlers/index.js'
+import JobEmbed from '../views/embeds/JobEmbed.js'
 import { validateURL } from '../common/validations.js';
 import RequiredParameters from '../common/errors/RequiredParameters.js'
 
-function vaga({ params }) {
+async function vaga(message, { params }) {
     if (params.length === 0) throw new RequiredParameters('URL')
 
     const url = params[0]
     try {
         validateURL(url)
-        scrap(url)
+        const jobDetails = await scrap(url)
+        const jobEmbed = JobEmbed(jobDetails)
+        message.channel.send({ embeds: [jobEmbed] })
     } catch (err) {
         console.error(err.message)
     }
