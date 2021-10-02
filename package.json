@@ -4,12 +4,16 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start:local": "node src/index.js"
+    "start:local": "node src/index.js",
+    "db:build": "yarn exec knex migrate:latest --knexfile knexfile.js migrate:latest"
   },
   "dependencies": {
+    "axios": "^0.21.4",
     "discord.js": "^13.1.0",
     "dotenv": "^10.0.0",
-    "puppeteer": "^10.4.0"
+    "knex": "^0.95.11",
+    "puppeteer": "^10.4.0",
+    "sqlite3": "^5.0.2"
   },
   "type": "module"
 }

@@ -27,7 +27,8 @@ async function authenticate({ clientId, clientSecret, grantType }) {
     }
 
     try {
-        let token = getToken(clientId)
+        let token = await getToken(clientId)
+
         if (!token) {
             const res = await axios.request(config)
             if (!res || !res.data.access_token) {
@@ -36,35 +37,50 @@ async function authenticate({ clientId, clientSecret, grantType }) {
                 )
             }
             token = res.data.access_token
-            setToken(clientId, res.data)
+            let expires = new Date()
+            expires.setSeconds(expires.getSeconds() + res.data.expires_in)
+            const tokenObject = {
+                token,
+                clientId,
+                expires: expires.toISOString(),
+            }
+            await setToken(tokenObject)
             return token
         }
+
+        return token
     } catch (err) {
-        console.error(err.message)
+        console.error(err)
+        // console.error(err.message)
     }
 }
 
 async function searchChannels(query, first = null, after = null, liveOnly = null) {
     const token = await authenticate(twitchCredentials)
+    console.log(token)
 
-    const config = {
-        url: `${apiUrl}helix/search/channels`,
-        method: 'get',
-        headers: {
-            Authorization: `Bearer ${token}`,
-            "Client-Id": twitchCredentials.clientId
-        },
-        params: {
-            query,
-            first,
-            after,
-            live_only: liveOnly
+    try {
+        const config = {
+            url: `${apiUrl}helix/search/channels`,
+            method: 'get',
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Client-Id": twitchCredentials.clientId
+            },
+            params: {
+                query,
+                first,
+                after,
+                live_only: liveOnly
+            }
         }
+
+        const res = await axios.request(config)
+
+        return res.data
+    } catch(err) {
+        console.error(err.message)
     }
-
-    const res = await axios.request(config)
-
-    return (res || res.data)
 }
 
 export { authenticate, searchChannels }
