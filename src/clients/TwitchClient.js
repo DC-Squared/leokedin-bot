@@ -57,7 +57,6 @@ async function authenticate({ clientId, clientSecret, grantType }) {
 
 async function searchChannels(query, first = null, after = null, liveOnly = null) {
     const token = await authenticate(twitchCredentials)
-    console.log(token)
 
     try {
         const config = {
@@ -83,4 +82,4 @@ async function searchChannels(query, first = null, after = null, liveOnly = null
     }
 }
 
-export { authenticate, searchChannels }
+export default { authenticate, searchChannels }
