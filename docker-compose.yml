@@ -1,0 +1,16 @@
+version: '3.5'
+
+services:
+  discord-ubuntu:
+    build:
+      context: ./
+    volumes:
+      - ./:/home/bot
+    ports:
+      - "3000:3000"
+    networks:
+      - docker-network
+
+networks:
+  docker-network:
+    driver: bridge
