@@ -1,8 +1,10 @@
 FROM node:16-alpine
 
-RUN yarn install --frozen-lockfile
-
 WORKDIR /home/bot
+
+COPY . /home/bot/
+
+RUN yarn install --frozen-lockfile
 
 EXPOSE 3000
 
