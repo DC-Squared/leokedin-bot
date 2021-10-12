@@ -43,7 +43,7 @@ jobs:
         id: render-main-container
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
-          task-definition: leokedin-bot
+          task-definition: task-definition.json
           container-name: leokedin-bot
           image: ${{ steps.build-image.outputs.image }}
 
