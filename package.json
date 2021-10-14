@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start:local": "node src/index.js",
+    "start": "node src/index.js",
     "db:build": "yarn exec knex migrate:latest --knexfile knexfile.js migrate:latest"
   },
   "dependencies": {
@@ -14,9 +14,6 @@
     "knex": "^0.95.11",
     "puppeteer": "^10.4.0",
     "sqlite3": "^5.0.2"
-  },
-  "scripts": {
-    "start": "node src/index.js"
   },
   "type": "module"
 }
