@@ -2,6 +2,8 @@ FROM zenato/puppeteer
 
 USER root
 
+COPY . /home/bot
+
 WORKDIR /home/bot
 
 RUN yarn global add n
