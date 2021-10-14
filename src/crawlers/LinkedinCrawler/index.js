@@ -4,7 +4,7 @@ async function scrapFromLinkedin(jobUrl) {
     try {
         const browser = await puppeteer.launch({
             headless: true,
-            args: ['--headless']
+            args: ['--headless', '--no-sandbox', '--disable-setuid-sandbox']
         })
         
         const page = await browser.newPage()
