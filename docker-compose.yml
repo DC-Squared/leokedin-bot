@@ -2,10 +2,10 @@ version: '3.5'
 
 services:
   discord-ubuntu:
-    build:
-      context: ./
+    container_name: leokedin-bot
+    build: .
     volumes:
-      - ./:/home/bot
+      - .:/home/bot
     ports:
       - "3000:3000"
     networks:

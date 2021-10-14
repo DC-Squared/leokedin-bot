@@ -1,8 +1,11 @@
-FROM node:16-alpine
+FROM zenato/puppeteer
+
+USER root
 
 WORKDIR /home/bot
 
-COPY . /home/bot/
+RUN yarn global add n
+RUN n latest
 
 RUN yarn install --frozen-lockfile
 
